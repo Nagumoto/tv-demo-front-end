@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Manage Shows</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="file:///Users/neilsmadsen/projects/tv-demo-front-end/tv-demo-front-end.css" />
+    <script src="file:///Users/neilsmadsen/projects/tv-demo-front-end/main.js"></script>
+</head>
+
+<body>
+    <nav>
+        <h1>
+            <span class="current">Manage</span> <span><a href="file:///Users/neilsmadsen/projects/tv-demo-front-end/preview.html">Preview</a></span>
+        </h1>
+    </nav>
+    <div>
+        <section id="show-selection">
+            <h2>Shows</h2>
+            <div><span><button onclick="clickedShowSelection()">The Guild</button></span><button onclick="clickedDelete()">-</button></div>
+            <div><span><button onclick="clickedShowSelection()">RWBY</button></span><button onclick="clickedDelete()">-</button></div>
+        </section>
+        <form id="show-details">
+            <div>
+                <h3>New/Edit Show</h3>
+                <div id="details-form">
+                    <div>
+                        Name :<br />
+                        Rating :<br />
+                        Image URL :
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Show Name"><br />
+                        <input type="text" placeholder="Between 1 (Family Friendly) - 5 (Viewer Discretion Advised)"><br />
+                        <input type="text" placeholder="URL of show preview image"><br />
+                        <span id="create-update">
+                            <input type="submit" value="Create/Update"  onclick="clickedCreateUpdate()"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
