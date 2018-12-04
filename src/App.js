@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
 import './App.css';
+import ManagePage from './ManagePage'
+import PreviewPage from './PreviewPage'
 
 class App extends Component {
-  render() {
+
+  render = () => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+
+      <Router>
+        <Fragment>
+          <Switch>
+            <Route exact path="/" component={ManagePage} />
+            <Route path="/ManagePage" component={ManagePage} />
+            <Route path="/PreviewPage" component={PreviewPage} />
+          </Switch>
+
+          <NavLink exact to={'/ManagePage'}
+            activeClassName='active' />
+
+          <NavLink exact to={'/PreviewPage'}
+            activeClassName='active' />
+
+        </Fragment>
+      </Router>
+
+    )
   }
 }
 
-export default App;
+export default App
