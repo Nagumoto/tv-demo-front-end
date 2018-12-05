@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import SiteNav from './SiteNav';
+import React, { Component } from 'react'
+import SiteNav from './SiteNav'
+import TVShow from './TVShow'
 
 class ManagePage extends Component {
-    clickedShowSelection = () => { console.log('Clicked Show Selection') }
-
-    clickedDelete = () => {
-        console.log('Clicked Delete')
+    tvShowSelected = () => {
+        console.log('tvShowSelected')
     }
 
-    clickedCreateUpdate = () => {
-        console.log('Clicked Create/Update')
+    tvShowDeleted = () => {
+        console.log('tvShowDeleted')
+    }
+
+    saveTVShow = () => {
+        console.log('saveTVShow')
     }
 
     changedShowName = () => {
-        console.log('Changed Show Name')
+        console.log('changedShowName')
     }
 
     render = () => {
@@ -25,8 +28,8 @@ class ManagePage extends Component {
                 <div id="main">
                     <section id="show-selection">
                         <h2>Shows</h2>
-                        <div><span><button onClick={this.clickedShowSelection}>The Guild</button></span><button className="delete" onClick={this.clickedDelete}>-</button></div>
-                        <div><span><button onClick={this.clickedShowSelection}>RWBY</button></span><button className="delete" onClick={this.clickedDelete}>-</button></div>
+                        <TVShow selectHandler={this.tvShowSelected} deleteHandler={this.tvShowDeleted} name="The Guild" allowDelete={true} />
+                        <TVShow selectHandler={this.tvShowSelected} deleteHandler={this.tvShowDeleted} name="RWBY" allowDelete={true} />
                     </section>
                     <form id="show-details">
                         <div>
@@ -36,13 +39,13 @@ class ManagePage extends Component {
                                     Name :<br />
                                     Rating :<br />
                                     Image URL :
-                    </div>
+                                </div>
                                 <div>
                                     <input id="name" onChange={this.changedShowName} type="text" placeholder="Show Name" /><br />
                                     <input type="text" placeholder="Between 1 (Family Friendly) - 5 (Viewer Discretion Advised)" /><br />
                                     <input type="text" placeholder="URL of show preview image" /><br />
                                     <span id="create-update">
-                                        <input type="submit" value="Create/Update" onClick={this.clickedCreateUpdate} />
+                                        <button onClick={this.saveTVShow}>Create/Update</button>
                                     </span>
                                 </div>
                             </div>

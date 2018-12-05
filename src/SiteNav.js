@@ -6,8 +6,8 @@ class SiteNav extends Component {
     render() {
         return (
                 <h1>
-                    <span className="center"><NavLink to="/ManagePage">Manage</NavLink></span>
-                    <span className="center"><NavLink to="/PreviewPage">Preview</NavLink></span>
+                    <span className="center"><NavLink activeClassName='active' exact to="/">Manage</NavLink></span>
+                    <span className="center"><NavLink activeClassName='active' to="/PreviewPage">Preview</NavLink></span>
                 </h1>
         )
     }

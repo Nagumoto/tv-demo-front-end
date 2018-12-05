@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import SiteNav from './SiteNav'
+import TVShow from './TVShow'
 
 class PreviewPage extends Component {
-    clickedShowSelection = () => {
-        console.log('Clicked Show Selection')
+    tvShowSelected = () => {
+        console.log('tvShowSelected')
     }
 
     render = () => {
@@ -15,8 +16,8 @@ class PreviewPage extends Component {
                 <div>
                     <section id="show-selection">
                         <h2>Shows</h2>
-                        <div><span><button onClick={this.clickedShowSelection}>The Guild</button></span></div>
-                        <div><span><button onClick={this.clickedShowSelection}>RWBY</button></span></div>
+                        <TVShow selectHandler={this.tvShowSelected} name="The Guild" />
+                        <TVShow selectHandler={this.tvShowSelected} name="RWBY" />
                     </section>
                     <div id="show-preview">
                         <h3><span>The Guild</span><span>3</span></h3>
