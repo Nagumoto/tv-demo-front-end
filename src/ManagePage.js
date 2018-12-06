@@ -11,7 +11,8 @@ class ManagePage extends Component {
         console.log('tvShowDeleted')
     }
 
-    saveTVShow = () => {
+    saveTVShow = (e) => {
+        e.preventDefault()
         console.log('saveTVShow')
     }
 
