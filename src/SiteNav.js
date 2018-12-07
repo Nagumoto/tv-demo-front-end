@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 class SiteNav extends Component {
 
-    render() {
+    render = () => {
         return (
                 <h1>
                     <span className="center"><NavLink activeClassName='active' exact to="/">Manage</NavLink></span>
