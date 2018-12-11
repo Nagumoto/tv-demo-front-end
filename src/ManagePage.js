@@ -3,21 +3,73 @@ import SiteNav from './SiteNav'
 import TVShow from './TVShow'
 
 class ManagePage extends Component {
-    tvShowSelected = () => {
-        console.log('tvShowSelected')
+
+    state = {
+        nameInProgress: 'The Guild',
+        ratingInProgress: '3',
+        imageInProgress: 'An image URL',
+        show: {
+            name: '',
+            rating: '',
+            image: ''
+        }
     }
 
-    tvShowDeleted = () => {
+    showSelected = () => {
+        console.log('tvShowSelected')
+        this.setState({
+            nameInProgress: this.state.show.name,
+            ratingInProgress: this.state.show.rating,
+            imageInProgress: this.state.show.image
+        })
+    }
+
+    showDeleted = () => {
         console.log('tvShowDeleted')
+        this.setState({
+            show: {
+                name: '',
+                rating: '',
+                image: ''
+            }
+        })
     }
 
     saveTVShow = (e) => {
         e.preventDefault()
-        console.log('saveTVShow')
+        this.setState({
+            show: {
+                name: this.state.nameInProgress,
+                rating: this.state.ratingInProgress,
+                image: this.state.imageInProgress
+            },
+            nameInProgress: '',
+            ratingInProgress: '',
+            imageInProgress: ''
+        })
     }
 
-    changedShowName = () => {
-        console.log('changedShowName')
+    changedName = (e) => {
+        console.log(e.target.value)
+        this.setState({ nameInProgress: e.target.value })
+    }
+
+    changedRating = (e) => {
+        console.log(e.target.value)
+        this.setState({ ratingInProgress: e.target.value })
+    }
+
+    changedimage = (e) => {
+        console.log(e.target.value)
+        this.setState({ imageInProgress: e.target.value })
+    }
+
+    renderShows = () => {
+        if (this.state.show.name) {
+            return (
+                <TVShow name={this.state.show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+            )
+        }
     }
 
     render = () => {
@@ -29,8 +81,7 @@ class ManagePage extends Component {
                 <div id="main">
                     <section id="show-selection">
                         <h2>Shows</h2>
-                        <TVShow selectHandler={this.tvShowSelected} deleteHandler={this.tvShowDeleted} name="The Guild" allowDelete={true} />
-                        <TVShow selectHandler={this.tvShowSelected} deleteHandler={this.tvShowDeleted} name="RWBY" allowDelete={true} />
+                        {this.renderShows()}
                     </section>
                     <form id="show-details">
                         <div>
@@ -42,9 +93,9 @@ class ManagePage extends Component {
                                     Image URL :
                                 </div>
                                 <div>
-                                    <input id="name" onChange={this.changedShowName} type="text" placeholder="Show Name" /><br />
-                                    <input type="text" placeholder="Between 1 (Family Friendly) - 5 (Viewer Discretion Advised)" /><br />
-                                    <input type="text" placeholder="URL of show preview image" /><br />
+                                    <input onChange={this.changedName} value={this.state.nameInProgress} /><br />
+                                    <input onChange={this.changedRating} value={this.state.ratingInProgress} /><br />
+                                    <input onChange={this.changedimage} value={this.state.imageInProgress} /><br />
                                     <span id="create-update">
                                         <button onClick={this.saveTVShow}>Create/Update</button>
                                     </span>
