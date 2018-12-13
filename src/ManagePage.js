@@ -1,48 +1,45 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import SiteNav from './SiteNav'
 import TVShow from './TVShow'
 
 class ManagePage extends Component {
 
+    static propTypes = {
+        show: PropTypes.object.isRequired,
+        showDeleted: PropTypes.func.isRequired,
+        saveTVShow: PropTypes.func.isRequired
+    }
+
     state = {
         nameInProgress: 'The Guild',
         ratingInProgress: '3',
         imageInProgress: 'An image URL',
-        show: {
-            name: '',
-            rating: '',
-            image: ''
-        }
     }
 
     showSelected = () => {
         console.log('tvShowSelected')
         this.setState({
-            nameInProgress: this.state.show.name,
-            ratingInProgress: this.state.show.rating,
-            imageInProgress: this.state.show.image
+            nameInProgress: this.props.show.name,
+            ratingInProgress: this.props.show.rating,
+            imageInProgress: this.props.show.image
         })
     }
 
     showDeleted = () => {
         console.log('tvShowDeleted')
-        this.setState({
-            show: {
-                name: '',
-                rating: '',
-                image: ''
-            }
-        })
+        this.props.showDeleted()
     }
 
     saveTVShow = (e) => {
         e.preventDefault()
-        this.setState({
-            show: {
+        this.props.saveTVShow({
                 name: this.state.nameInProgress,
                 rating: this.state.ratingInProgress,
                 image: this.state.imageInProgress
-            },
+            }
+        )
+        this.setState({
             nameInProgress: '',
             ratingInProgress: '',
             imageInProgress: ''
@@ -65,9 +62,9 @@ class ManagePage extends Component {
     }
 
     renderShows = () => {
-        if (this.state.show.name) {
+        if (this.props.show.name) {
             return (
-                <TVShow name={this.state.show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+                <TVShow name={this.props.show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
             )
         }
     }

@@ -6,12 +6,50 @@ import PreviewPage from './PreviewPage'
 
 class App extends Component {
 
+  state = {
+    show: {
+        name: '',
+        rating: '',
+        image: ''
+    }
+}
+
+showDeleted = () => {
+  console.log('tvShowDeleted')
+  this.setState({
+      show: {
+          name: '',
+          rating: '',
+          image: ''
+      }
+  })
+}
+
+saveTVShow = (showToSave) => {
+  this.setState({
+      show: {
+          name: showToSave.name,
+          rating: showToSave.rating,
+          image: showToSave.image
+      },
+      nameInProgress: '',
+      ratingInProgress: '',
+      imageInProgress: ''
+  })
+}
+
+renderManagePage = () => {
+  return (
+    <ManagePage show={this.state.show} showDeleted={this.showDeleted} saveTVShow={this.saveTVShow} />
+  )
+}
+
   render = () => {
     return (
 
       <Router>
         <Switch>
-          <Route exact path="/" component={ManagePage} />
+          <Route exact path="/" component={this.renderManagePage} />
           <Route path="/PreviewPage" component={PreviewPage} />
         </Switch>
       </Router>
