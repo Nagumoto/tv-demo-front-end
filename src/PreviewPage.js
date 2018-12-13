@@ -1,11 +1,36 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import SiteNav from './SiteNav'
 import TVShow from './TVShow'
 
 class PreviewPage extends Component {
-    
-    ShowSelected = () => {
-        console.log('ShowSelected')
+
+    static propTypes = {
+        show: PropTypes.object.isRequired
+    }
+
+    state = {
+        selectedShow: {
+            name: '',
+            rating: '',
+            image: ''
+        }
+    }
+
+    showSelected = () => {
+        this.setState({
+            selectedShow: {
+                name: this.props.show.name,
+                rating: this.props.show.rating,
+                image: this.props.show.image
+            }
+        })
+    }
+
+    renderShows = () => {
+        return (
+            <TVShow name={this.props.show.name} selectHandler={this.showSelected} />
+        )
     }
 
     render = () => {
@@ -17,13 +42,12 @@ class PreviewPage extends Component {
                 <div>
                     <section id="show-selection">
                         <h2>Shows</h2>
-                        <TVShow selectHandler={this.ShowSelected} name="The Guild" />
-                        <TVShow selectHandler={this.ShowSelected} name="RWBY" />
+                        {this.renderShows()}
                     </section>
                     <div id="show-preview">
-                        <h3><span>The Guild</span><span>3</span></h3>
+                        <h3><span>{this.state.selectedShow.name}</span><span>{this.state.selectedShow.rating}</span></h3>
                         <div className="center">
-                            <img src="http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg" alt="The cast of The Guild in costume" />
+                            <img src={this.state.selectedShow.image} alt="A preview of the selected show." />
                         </div>
                     </div>
                 </div>

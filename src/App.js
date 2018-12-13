@@ -44,13 +44,19 @@ renderManagePage = () => {
   )
 }
 
+renderPreviewPage = () => {
+  return (
+    <PreviewPage show={this.state.show} />
+  )
+}
+
   render = () => {
     return (
 
       <Router>
         <Switch>
           <Route exact path="/" component={this.renderManagePage} />
-          <Route path="/PreviewPage" component={PreviewPage} />
+          <Route path="/PreviewPage" component={this.renderPreviewPage} />
         </Switch>
       </Router>
 

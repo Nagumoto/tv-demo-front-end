@@ -14,7 +14,7 @@ class ManagePage extends Component {
     state = {
         nameInProgress: 'The Guild',
         ratingInProgress: '3',
-        imageInProgress: 'An image URL',
+        imageInProgress: 'http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg'
     }
 
     showSelected = () => {
