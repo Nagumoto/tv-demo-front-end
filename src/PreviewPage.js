@@ -3,6 +3,7 @@ import SiteNav from './SiteNav'
 import TVShow from './TVShow'
 
 class PreviewPage extends Component {
+    
     ShowSelected = () => {
         console.log('ShowSelected')
     }

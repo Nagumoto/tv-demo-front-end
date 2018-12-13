@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class TVShow extends Component {
+    
     static propTypes = {
-        name: PropTypes.string,
-        allowDelete: PropTypes.bool
+        name: PropTypes.string.isRequired,
+        allowDelete: PropTypes.bool,
+        selectHandler: PropTypes.func.isRequired,
+        deleteHandler: PropTypes.func
     }
 
     renderDelete = () => {
