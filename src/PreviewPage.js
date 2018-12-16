@@ -28,9 +28,19 @@ class PreviewPage extends Component {
     }
 
     renderShows = () => {
-        return (
-            <TVShow name={this.props.show.name} selectHandler={this.showSelected} />
-        )
+        if (this.props.show.name) {
+            return (
+                <TVShow name={this.props.show.name} selectHandler={this.showSelected} />
+            )
+        }
+    }
+
+    renderImage = () => {
+        if (this.state.selectedShow.image) {
+            return (
+                <img src={this.state.selectedShow.image} alt="A preview of the selected show." />
+            )
+        }
     }
 
     render = () => {
@@ -47,7 +57,7 @@ class PreviewPage extends Component {
                     <div id="show-preview">
                         <h3><span>{this.state.selectedShow.name}</span><span>{this.state.selectedShow.rating}</span></h3>
                         <div className="center">
-                            <img src={this.state.selectedShow.image} alt="A preview of the selected show." />
+                            {this.renderImage()}
                         </div>
                     </div>
                 </div>
