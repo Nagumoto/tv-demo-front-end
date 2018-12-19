@@ -7,11 +7,7 @@ import PreviewPage from './PreviewPage'
 class App extends Component {
 
   state = {
-    show: {
-        name: '',
-        rating: '',
-        image: ''
-    }
+    tvShows: []
 }
 
 showDeleted = () => {
@@ -26,21 +22,17 @@ showDeleted = () => {
 }
 
 saveTVShow = (showToSave) => {
-  this.setState({
-      show: {
-          name: showToSave.name,
-          rating: showToSave.rating,
-          image: showToSave.image
-      },
-      nameInProgress: '',
-      ratingInProgress: '',
-      imageInProgress: ''
+  this.setState((prevState) => {
+    return {
+      tvShows:[...prevState.tvShows, showToSave]
+    }
   })
+  console.log(showToSave)
 }
 
 renderManagePage = () => {
   return (
-    <ManagePage show={this.state.show} showDeleted={this.showDeleted} saveTVShow={this.saveTVShow} />
+    <ManagePage tvShows={this.state.tvShows} showDeleted={this.showDeleted} saveTVShow={this.saveTVShow} />
   )
 }
 
@@ -51,6 +43,7 @@ renderPreviewPage = () => {
 }
 
   render = () => {
+    console.log(this.state)
     return (
 
       <Router>

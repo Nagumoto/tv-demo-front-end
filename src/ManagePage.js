@@ -6,7 +6,7 @@ import TVShow from './TVShow'
 class ManagePage extends Component {
 
     static propTypes = {
-        show: PropTypes.object.isRequired,
+        tvShows: PropTypes.array.isRequired,
         showDeleted: PropTypes.func.isRequired,
         saveTVShow: PropTypes.func.isRequired
     }
@@ -34,10 +34,10 @@ class ManagePage extends Component {
     saveTVShow = (e) => {
         e.preventDefault()
         this.props.saveTVShow({
-                name: this.state.nameInProgress,
-                rating: this.state.ratingInProgress,
-                image: this.state.imageInProgress
-            }
+            name: this.state.nameInProgress,
+            rating: this.state.ratingInProgress,
+            image: this.state.imageInProgress
+        }
         )
         this.setState({
             nameInProgress: '',
@@ -62,9 +62,13 @@ class ManagePage extends Component {
     }
 
     renderShows = () => {
-        if (this.props.show.name) {
+        if (this.props.tvShows) {
+            let tvShowElements = []
+            for (let i=0; i < this.props.tvShows.length; i++) {
+                tvShowElements.push(<TVShow name={this.props.tvShows[i].name} key={this.props.tvShows[i].name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />)                
+            }
             return (
-                <TVShow name={this.props.show.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+                tvShowElements
             )
         }
     }
