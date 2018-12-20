@@ -63,12 +63,10 @@ class ManagePage extends Component {
 
     renderShows = () => {
         if (this.props.tvShows) {
-            let tvShowElements = []
-            for (let i=0; i < this.props.tvShows.length; i++) {
-                tvShowElements.push(<TVShow name={this.props.tvShows[i].name} key={this.props.tvShows[i].name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />)                
-            }
-            return (
-                tvShowElements
+            return this.props.tvShows.map(
+                (tvShow) => (
+                    <TVShow name={tvShow.name} key={tvShow.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+                )
             )
         }
     }
