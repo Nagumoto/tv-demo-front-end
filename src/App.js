@@ -38,7 +38,7 @@ renderManagePage = () => {
 
 renderPreviewPage = () => {
   return (
-    <PreviewPage show={this.state.show} />
+    <PreviewPage tvShows={this.state.tvShows} />
   )
 }
 

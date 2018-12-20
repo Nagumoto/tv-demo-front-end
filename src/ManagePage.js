@@ -33,9 +33,10 @@ class ManagePage extends Component {
 
     saveTVShow = (e) => {
         e.preventDefault()
+        let rating = parseInt(this.state.ratingInProgress, 10)
         this.props.saveTVShow({
             name: this.state.nameInProgress,
-            rating: this.state.ratingInProgress,
+            rating: rating,
             image: this.state.imageInProgress
         }
         )

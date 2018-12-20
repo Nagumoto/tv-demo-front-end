@@ -6,7 +6,7 @@ import TVShow from './TVShow'
 class PreviewPage extends Component {
 
     static propTypes = {
-        show: PropTypes.object.isRequired
+        tvShows: PropTypes.array.isRequired
     }
 
     state = {
@@ -20,7 +20,7 @@ class PreviewPage extends Component {
     showSelected = () => {
         this.setState({
             selectedShow: {
-                name: this.props.show.name,
+                name: this.props.tvShows.name,
                 rating: this.props.show.rating,
                 image: this.props.show.image
             }
@@ -28,11 +28,23 @@ class PreviewPage extends Component {
     }
 
     renderShows = () => {
-        if (this.props.show.name) {
-            return (
-                <TVShow name={this.props.show.name} selectHandler={this.showSelected} />
-            )
+        if (this.props.tvShows) {
+            return this.props.tvShows
+                .filter((tvShow) => {
+                    return tvShow.rating < 4
+                })
+                .map(
+                    (tvShow) => (
+                        <TVShow name={tvShow.name} key={tvShow.name} selectHandler={this.showSelected} />
+                    )
+                )
         }
+    }
+
+    calculateAvgRating = () => {
+        return this.props.tvShows.reduce((sum, tvShow) => {
+            return sum + tvShow.rating / this.props.tvShows.length
+        }, 0)
     }
 
     renderImage = () => {
@@ -52,6 +64,7 @@ class PreviewPage extends Component {
                 <div>
                     <section id="show-selection">
                         <h2>Shows</h2>
+                        <section>Average Rating: {this.calculateAvgRating()}</section>
                         {this.renderShows()}
                     </section>
                     <div id="show-preview">
