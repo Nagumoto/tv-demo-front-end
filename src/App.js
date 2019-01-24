@@ -32,7 +32,7 @@ saveTVShow = (showToSave) => {
 
 renderManagePage = () => {
   return (
-    <ManagePage tvShows={this.state.tvShows} showDeleted={this.showDeleted} saveTVShow={this.saveTVShow} />
+    <ManagePage />
   )
 }
 
@@ -43,7 +43,6 @@ renderPreviewPage = () => {
 }
 
   render = () => {
-    console.log(this.state)
     return (
 
       <Router>

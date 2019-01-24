@@ -1,28 +1,37 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import SiteNav from './SiteNav'
 import TVShow from './TVShow'
 
 class ManagePage extends Component {
 
-    static propTypes = {
-        tvShows: PropTypes.array.isRequired,
-        showDeleted: PropTypes.func.isRequired,
-        saveTVShow: PropTypes.func.isRequired
+    state = {
+        showInProgress: {
+            name: 'The Guild',
+            rating: '3',
+            image: 'http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg'
+        },
+        tvShows: []
     }
 
-    state = {
-        nameInProgress: 'The Guild',
-        ratingInProgress: '3',
-        imageInProgress: 'http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg'
+
+
+    componentDidMount() {
+        fetch('http://localhost:4000/shows/')
+            .then(res => (res.json()))
+            .then(tvShows => this.setState({tvShows}, () => {
+                console.log('Shows fetched...', this.state.tvShows)
+            }))
     }
 
     showSelected = () => {
         console.log('tvShowSelected')
+        console.log(this.props.tvShows.name)
+        console.log(this.props.tvShows.rating)
+        console.log(this.props.tvShows.image)
         this.setState({
-            nameInProgress: this.props.show.name,
-            ratingInProgress: this.props.show.rating,
-            imageInProgress: this.props.show.image
+            name: this.props.tvShows.name,
+            rating: this.props.tvShows.rating,
+            image: this.props.tvShows.image
         })
     }
 
@@ -31,40 +40,53 @@ class ManagePage extends Component {
         this.props.showDeleted()
     }
 
-    saveTVShow = (e) => {
+    postTVShow = (e) => {
         e.preventDefault()
-        let rating = parseInt(this.state.ratingInProgress, 10)
-        this.props.saveTVShow({
-            name: this.state.nameInProgress,
-            rating: rating,
-            image: this.state.imageInProgress
-        }
-        )
-        this.setState({
-            nameInProgress: '',
-            ratingInProgress: '',
-            imageInProgress: ''
+        fetch('http://localhost:4000/shows/', {
+            method: 'POST',
+            body: JSON.stringify(this.state.showInProgress),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
+            .then(res => res.json())
+            .then(res => console.log('Success:', JSON.stringify(res)))
+            .catch(error => console.error('Error:', error))
+        fetch('http://localhost:4000/shows/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.json())
+            .then(tvShows => this.setState({tvShows}))
+            .catch(error => console.error('Error:', error))
+        /*        this.setState({
+                    name: '',
+                    rating: '',
+                    image: ''
+                })*/
     }
 
     changedName = (e) => {
         console.log(e.target.value)
-        this.setState({ nameInProgress: e.target.value })
+        this.setState({ showInProgress: {name: e.target.value }})
     }
 
     changedRating = (e) => {
         console.log(e.target.value)
-        this.setState({ ratingInProgress: e.target.value })
+        this.setState({ showInProgress: {rating: e.target.value }})
     }
 
     changedimage = (e) => {
         console.log(e.target.value)
-        this.setState({ imageInProgress: e.target.value })
+        this.setState({ showInProgress: {image: e.target.value }})
     }
 
     renderShows = () => {
-        if (this.props.tvShows) {
-            return this.props.tvShows.map(
+        if (this.state.tvShows) {
+            console.log(this.state.tvShows)
+            return this.state.tvShows.map(
                 (tvShow) => (
                     <TVShow name={tvShow.name} key={tvShow.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
                 )
@@ -93,11 +115,11 @@ class ManagePage extends Component {
                                     Image URL :
                                 </div>
                                 <div>
-                                    <input onChange={this.changedName} value={this.state.nameInProgress} /><br />
-                                    <input onChange={this.changedRating} value={this.state.ratingInProgress} /><br />
-                                    <input onChange={this.changedimage} value={this.state.imageInProgress} /><br />
+                                    <input onChange={this.changedName} value={this.state.showInProgress.name} /><br />
+                                    <input onChange={this.changedRating} value={this.state.showInProgress.rating} /><br />
+                                    <input onChange={this.changedimage} value={this.state.showInProgress.image} /><br />
                                     <span id="create-update">
-                                        <button onClick={this.saveTVShow}>Create/Update</button>
+                                        <button onClick={this.postTVShow}>Create/Update</button>
                                     </span>
                                 </div>
                             </div>
