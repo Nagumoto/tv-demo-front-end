@@ -13,8 +13,6 @@ class ManagePage extends Component {
         tvShows: []
     }
 
-
-
     componentDidMount() {
         fetch('http://localhost:4000/shows/')
             .then(res => (res.json()))
