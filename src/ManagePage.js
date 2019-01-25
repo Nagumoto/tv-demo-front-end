@@ -15,7 +15,7 @@ class ManagePage extends Component {
 
     componentDidMount() {
         fetch('http://localhost:4000/shows/')
-            .then(res => (res.json()))
+            .then(res => res.json())
             .then(tvShows => this.setState({tvShows}, () => {
                 console.log('Shows fetched...', this.state.tvShows)
             }))
