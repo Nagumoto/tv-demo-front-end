@@ -15,12 +15,8 @@ class ManagePage extends Component {
 
     componentDidMount = async () => {
         try {
-            const res = await fetch('http://localhost:4000/shows/', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            const res = await fetch('https://evening-eyrie-81867.herokuapp.com/shows/')
+            // const res = await fetch('http://localhost:4000/shows/')
             const tvShows = await res.json()
 
             this.setState({ tvShows }, () => {
@@ -51,7 +47,9 @@ class ManagePage extends Component {
     postTVShow = async (e) => {
         e.preventDefault()
         try {
-            const post = await fetch('http://localhost:4000/shows/', {
+            await fetch('https://evening-eyrie-81867.herokuapp.com/shows/', {
+            // await fetch('http://localhost:4000/shows/', {
+
                 method: 'POST',
                 body: JSON.stringify(this.state.showInProgress),
                 headers: {
@@ -59,17 +57,8 @@ class ManagePage extends Component {
                 }
             })
 
-            const postedShow = await post.json()
-
-            console.log('Success:', JSON.stringify(postedShow))
-
             this.componentDidMount()
 
-            /*        this.setState({
-                        name: '',
-                        rating: '',
-                        image: ''
-                    })*/
         } catch (err) {
             console.log(err)
         }
@@ -77,25 +66,30 @@ class ManagePage extends Component {
 
     changedName = (e) => {
         console.log(e.target.value)
-        this.setState({ showInProgress: { name: e.target.value } })
+        let showInProgress = Object.assign({}, this.state.showInProgress)
+        showInProgress.name = e.target.value
+        this.setState({ showInProgress })
     }
 
     changedRating = (e) => {
         console.log(e.target.value)
-        this.setState({ showInProgress: { rating: e.target.value } })
+        let showInProgress = Object.assign({}, this.state.showInProgress)
+        showInProgress.rating = e.target.value
+        this.setState({ showInProgress })
     }
 
     changedimage = (e) => {
         console.log(e.target.value)
-        this.setState({ showInProgress: { image: e.target.value } })
+        let showInProgress = Object.assign({}, this.state.showInProgress)
+        showInProgress.image = e.target.value
+        this.setState({ showInProgress })
     }
 
     renderShows = () => {
         if (this.state.tvShows) {
-//            console.log(this.state.tvShows)
             return this.state.tvShows.map(
                 (tvShow) => (
-                    <TVShow name={tvShow.name} key={tvShow.name} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
+                    <TVShow name={tvShow.name} key={tvShow._id} allowDelete={true} selectHandler={this.showSelected} deleteHandler={this.showDeleted} />
                 )
             )
         }

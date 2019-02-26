@@ -6,10 +6,6 @@ import PreviewPage from './PreviewPage'
 
 class App extends Component {
 
-  state = {
-    tvShows: []
-}
-
 showDeleted = () => {
   console.log('tvShowDeleted')
   this.setState({
