@@ -73,6 +73,7 @@ h2 {
 }
 
 #show-selection span + button {
+  align-content: center;
   border-radius: 50%;
   height: 24px;
   width: 24px;
