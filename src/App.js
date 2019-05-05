@@ -6,26 +6,6 @@ import PreviewPage from './PreviewPage'
 
 class App extends Component {
 
-showDeleted = () => {
-  console.log('tvShowDeleted')
-  this.setState({
-      show: {
-          name: '',
-          rating: '',
-          image: ''
-      }
-  })
-}
-
-saveTVShow = (showToSave) => {
-  this.setState((prevState) => {
-    return {
-      tvShows:[...prevState.tvShows, showToSave]
-    }
-  })
-  console.log(showToSave)
-}
-
 renderManagePage = () => {
   return (
     <ManagePage />
@@ -34,7 +14,7 @@ renderManagePage = () => {
 
 renderPreviewPage = () => {
   return (
-    <PreviewPage tvShows={this.state.tvShows} />
+    <PreviewPage />
   )
 }
 
