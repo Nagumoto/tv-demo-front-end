@@ -46,7 +46,8 @@ class ManagePage extends Component {
             // await fetch('http://localhost:4000/shows/' + id, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Mode': 'CORS'
                 }
             })
             this.setState({
@@ -72,7 +73,8 @@ class ManagePage extends Component {
                 method: 'PUT',
                 body: JSON.stringify(this.state.showInProgress),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Mode': 'CORS'
                 }
             })
             alert(show.name + ' Updated')
@@ -84,13 +86,14 @@ class ManagePage extends Component {
 
     postTVShow = async () => {
         try {
-            // await fetch('https://evening-eyrie-81867.herokuapp.com/shows/', {
-            await fetch('http://localhost:4000/shows/', {
+            await fetch('https://evening-eyrie-81867.herokuapp.com/shows/', {
+            // await fetch('http://localhost:4000/shows/', {
 
                 method: 'POST',
                 body: JSON.stringify(this.state.showInProgress),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Mode': 'CORS'
                 }
             })
         } catch (err) {
