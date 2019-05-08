@@ -6,9 +6,9 @@ class ManagePage extends Component {
 
     state = {
         showInProgress: {
-            name: 'The Guild',
-            rating: '3',
-            image: 'http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg'
+            name: '',
+            rating: '',
+            image: ''
         },
         showDeleted: '',
         tvShows: []
