@@ -11,13 +11,12 @@ class TVShow extends Component {
         deleteHandler: PropTypes.func
     }
 
-    deleteHandler = (e) => {
-        e.preventDefault()
+    deleteHandler = () => {
         this.props.deleteHandler(this.props.index)
     }
 
     selectHandler = () => {
-        this.props.selectHandler(this.props.show._id)
+        this.props.selectHandler(this.props.show)
     }
 
     renderDelete = () => {

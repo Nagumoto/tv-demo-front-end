@@ -39,8 +39,8 @@ class PreviewPage extends Component {
         this.setState({ filter: !this.state.filter })
     }
 
-    showSelected = (id) => {
-        const show = this.state.tvShows.filter((show) => show._id === id)[0]
+    showSelected = (selection) => {
+        const show = this.state.tvShows.filter((show) => show._id === selection._id)[0]
         this.setState({
             selectedShow: {
                 name: show.name,
@@ -69,9 +69,10 @@ class PreviewPage extends Component {
     }
 
     calculateAvgRating = () => {
-        return this.state.tvShows.reduce((sum, tvShow) => {
+        let num = this.state.tvShows.reduce((sum, tvShow) => {
             return sum + tvShow.rating / this.state.tvShows.length
         }, 0)
+        return Math.round((num + 0.00001) * 100) / 100
     }
 
     renderImage = () => {

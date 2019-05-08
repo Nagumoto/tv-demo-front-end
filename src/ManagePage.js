@@ -10,6 +10,7 @@ class ManagePage extends Component {
             rating: '3',
             image: 'http://pop-verse.com/wp-content/uploads/2013/02/theguild.jpg'
         },
+        showDeleted: '',
         tvShows: []
     }
 
@@ -27,8 +28,7 @@ class ManagePage extends Component {
         }
     }
 
-    showSelected = (id) => {
-        const show = this.state.tvShows.filter((show) => show._id === id)[0]
+    showSelected = (show) => {
         this.setState({
             showInProgress: {
                 name: show.name,
@@ -49,6 +49,9 @@ class ManagePage extends Component {
                     'Content-Type': 'application/json'
                 }
             })
+            this.setState({
+                showDeleted: this.state.tvShows[index].name
+            })
             this.componentDidMount()
         } catch (err) {
             console.log(err)
@@ -59,14 +62,12 @@ class ManagePage extends Component {
         e.preventDefault()
         const show = this.state.tvShows.filter((tvShow) => tvShow.name === this.state.showInProgress.name)
         if (show.length === 0) this.postTVShow()
-        else this.putTVShow(show)
+        else this.putTVShow(show[0])
     }
 
     putTVShow = async (show) => {
-        console.log(show[0]._id)
-        const id = show[0]._id
         try {
-            await fetch('https://evening-eyrie-81867.herokuapp.com/shows/' + id, {
+            await fetch('https://evening-eyrie-81867.herokuapp.com/shows/' + show._id, {
             // await fetch('http://localhost:4000/shows/' + id, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.showInProgress),
@@ -74,8 +75,7 @@ class ManagePage extends Component {
                     'Content-Type': 'application/json'
                 }
             })
-                .then(this.componentDidMount())
-
+            alert(show.name + ' Updated')
         } catch (err) {
             console.log(err)
         }
