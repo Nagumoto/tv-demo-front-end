@@ -52,10 +52,10 @@ class ManagePage extends Component {
             this.setState({
                 showDeleted: this.state.tvShows[index].name
             })
-            this.componentDidMount()
         } catch (err) {
             console.log(err)
         }
+        this.componentDidMount()
     }
 
     saveTVShow = (e) => {
@@ -68,7 +68,7 @@ class ManagePage extends Component {
     putTVShow = async (show) => {
         try {
             await fetch('https://evening-eyrie-81867.herokuapp.com/shows/' + show._id, {
-            // await fetch('http://localhost:4000/shows/' + id, {
+            // await fetch('http://localhost:4000/shows/' + show._id, {
                 method: 'PUT',
                 body: JSON.stringify(this.state.showInProgress),
                 headers: {
@@ -79,12 +79,13 @@ class ManagePage extends Component {
         } catch (err) {
             console.log(err)
         }
+        this.componentDidMount()
     }
 
     postTVShow = async () => {
         try {
-            await fetch('https://evening-eyrie-81867.herokuapp.com/shows/', {
-            // await fetch('http://localhost:4000/shows/', {
+            // await fetch('https://evening-eyrie-81867.herokuapp.com/shows/', {
+            await fetch('http://localhost:4000/shows/', {
 
                 method: 'POST',
                 body: JSON.stringify(this.state.showInProgress),
@@ -92,12 +93,10 @@ class ManagePage extends Component {
                     'Content-Type': 'application/json'
                 }
             })
-
-            this.componentDidMount()
-
         } catch (err) {
             console.log(err)
         }
+        this.componentDidMount()
     }
 
     changedName = (e) => {
